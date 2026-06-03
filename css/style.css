@@ -852,27 +852,59 @@ header.scrolled .nav-container {
 /* Responsive adjustments for the book */
 @media (max-width: 992px) {
   .book-container {
-    height: auto;
-    min-height: 550px;
+    height: auto !important;
+    min-height: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
   }
   .menu-book {
-    height: auto;
-    min-height: 530px;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
-  .page-split {
-    grid-template-columns: 1fr;
+  .book-page {
+    position: relative !important;
+    opacity: 0 !important;
+    display: none !important;
+    transform: none !important;
+    height: auto !important;
+    pointer-events: none !important;
+  }
+  .book-page.active {
+    opacity: 1 !important;
+    display: block !important;
+    pointer-events: auto !important;
+  }
+  .page-half {
+    overflow-y: visible !important;
+    height: auto !important;
+    box-shadow: none !important;
+    border-radius: var(--border-radius-md) !important;
+    background-color: #FAF6F0 !important;
+    padding: 2.5rem 2rem !important;
   }
   .left-half {
-    border-right: none;
-    border-bottom: 1.5px solid rgba(0, 0, 0, 0.15);
-    padding-right: 2.5rem;
+    border-bottom: 2px dashed rgba(211, 107, 78, 0.15) !important;
+    border-right: none !important;
   }
   .right-half {
-    border-left: none;
-    padding-left: 2.5rem;
+    border-left: none !important;
+    margin-top: 1.5rem;
   }
   .book-spiral-spine {
-    display: none;
+    display: none !important;
+  }
+  .book-controls {
+    position: relative !important;
+    bottom: auto !important;
+    margin-top: 2rem !important;
+    left: auto !important;
+    width: 100% !important;
+    padding: 0 !important;
   }
 }
 
@@ -1759,6 +1791,60 @@ footer {
     right: 15px;
     width: 34px;
     height: 34px;
+  }
+}
+
+/* Mobile-specific adjustments for maximum alignment and readability */
+@media (max-width: 480px) {
+  /* Responsive Display Typography to prevent character clipping */
+  .hero-content h1 {
+    font-size: 2.8rem !important;
+  }
+  .section-header h2, 
+  .wheel-showcase-text h2, 
+  .booking-text h2 {
+    font-size: 2.3rem !important;
+  }
+
+  /* Rescale pottery wheel viewport boundaries to fit small mobiles */
+  .pottery-wheel-base {
+    width: 300px !important;
+    height: 260px !important;
+    margin: 0 auto;
+  }
+
+  /* Responsive adjustments for the Menu Notebook */
+  .book-container {
+    padding: 6px !important;
+  }
+  .page-half {
+    padding: 1.5rem 1.2rem !important;
+  }
+  .cover-title {
+    font-size: 2.8rem !important;
+  }
+  .cover-desc {
+    font-size: 0.9rem !important;
+  }
+  .menu-cat-title {
+    font-size: 1.8rem !important;
+  }
+  .menu-item-name, 
+  .menu-item-price {
+    font-size: 1.1rem !important;
+  }
+
+  /* Stack time slots vertically on narrow screens */
+  .time-slots {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+/* Hide custom cursor follower on true touch screens to prevent lingering lags */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
   }
 }
 

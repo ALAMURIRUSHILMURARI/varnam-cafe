@@ -492,9 +492,9 @@ document.addEventListener('DOMContentLoaded', () => {
     wheelCanvas.height = rect.height * dpr;
     wCtx.scale(dpr, dpr);
 
-    const canvasWidth = rect.width;
-    const canvasHeight = rect.height;
-    const centerX = canvasWidth / 2;
+    let canvasWidth = rect.width;
+    let canvasHeight = rect.height;
+    let centerX = canvasWidth / 2;
     
     // Clay state geometries (10 layers from top to bottom)
     const blockRadii = [75, 76, 77, 78, 79, 80, 80, 80, 80, 80];
@@ -505,17 +505,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const cylinderHeight = 135;
     const vaseHeight = 160;
     
-    const yBase = 280; // Base of clay on the wheel
+    let yBase = canvasHeight * 0.8; // Base of clay on the wheel
     
     let targetProgress = 0;
     let currentProgress = 0; // LERPed progress for buttery smooth motion
     let isMouseOverCanvas = false;
-    let currentMouseY = 280;
+    let currentMouseY = yBase;
     
     // Platter settings
-    const platterY = 280;
-    const platterRadiusX = 130;
-    const platterRadiusY = 22;
+    let platterY = canvasHeight * 0.8;
+    let platterRadiusX = canvasWidth * 0.325;
+    let platterRadiusY = platterRadiusX * 0.17;
     
     // Spin animation angle
     let spinAngle = 0;
@@ -570,8 +570,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const y = e.clientY - rect.top;
       currentMouseY = y;
       
+      const scale = canvasWidth / 400;
       const bottomY = yBase;
-      const topY = 110;
+      const topY = yBase - (vaseHeight * scale) - (10 * scale);
       let progress = (bottomY - y) / (bottomY - topY);
       progress = Math.max(0, Math.min(1, progress));
       targetProgress = progress;
@@ -599,8 +600,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const y = e.touches[0].clientY - rect.top;
         currentMouseY = y;
         
+        const scale = canvasWidth / 400;
         const bottomY = yBase;
-        const topY = 110;
+        const topY = yBase - (vaseHeight * scale) - (10 * scale);
         let progress = (bottomY - y) / (bottomY - topY);
         progress = Math.max(0, Math.min(1, progress));
         targetProgress = progress;
@@ -613,6 +615,14 @@ document.addEventListener('DOMContentLoaded', () => {
       wheelCanvas.width = newRect.width * dpr;
       wheelCanvas.height = newRect.height * dpr;
       wCtx.scale(dpr, dpr);
+      
+      canvasWidth = newRect.width;
+      canvasHeight = newRect.height;
+      centerX = canvasWidth / 2;
+      yBase = canvasHeight * 0.8;
+      platterY = canvasHeight * 0.8;
+      platterRadiusX = canvasWidth * 0.325;
+      platterRadiusY = platterRadiusX * 0.17;
     });
     
     // Render loop
@@ -638,19 +648,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const speedMultiplier = 1.0;
       spinAngle += 0.04 * speedMultiplier;
       
+      const scale = canvasWidth / 400;
+
       // Draw shadow under platter
       wCtx.fillStyle = 'rgba(0, 0, 0, 0.4)';
       wCtx.beginPath();
-      wCtx.ellipse(centerX, platterY + 12, platterRadiusX * 0.95, platterRadiusY * 0.95, 0, 0, 2 * Math.PI);
+      wCtx.ellipse(centerX, platterY + 12 * scale, platterRadiusX * 0.95, platterRadiusY * 0.95, 0, 0, 2 * Math.PI);
       wCtx.fill();
       
       // Draw platter base cylinder (thickness)
       wCtx.fillStyle = '#1e1e1e';
       wCtx.beginPath();
-      wCtx.ellipse(centerX, platterY + 8, platterRadiusX, platterRadiusY, 0, 0, Math.PI);
+      wCtx.ellipse(centerX, platterY + 8 * scale, platterRadiusX, platterRadiusY, 0, 0, Math.PI);
       wCtx.lineTo(centerX - platterRadiusX, platterY);
       wCtx.ellipse(centerX, platterY, platterRadiusX, platterRadiusY, 0, Math.PI, 0);
-      wCtx.lineTo(centerX + platterRadiusX, platterY + 8);
+      wCtx.lineTo(centerX + platterRadiusX, platterY + 8 * scale);
       wCtx.closePath();
       wCtx.fill();
       
@@ -670,31 +682,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const angle = spinAngle + (i / 8) * Math.PI * 2;
         wCtx.beginPath();
         // Inner radius (starts under clay)
-        const innerRad = 15;
+        const innerRad = 15 * scale;
         wCtx.moveTo(centerX + innerRad * Math.cos(angle), platterY + innerRad * 0.17 * Math.sin(angle));
         wCtx.lineTo(centerX + platterRadiusX * Math.cos(angle), platterY + platterRadiusY * Math.sin(angle));
         wCtx.stroke();
       }
       
-      // Calculate dynamic geometry values based on currentProgress
+      // Calculate dynamic geometry values based on currentProgress scaled
+      const sBlockHeight = blockHeight * scale;
+      const sCylinderHeight = cylinderHeight * scale;
+      const sVaseHeight = vaseHeight * scale;
+
       let height = 0;
       const radii = [];
       let hollowR = 0;
       
       if (currentProgress < 0.5) {
         const p = currentProgress / 0.5;
-        height = blockHeight * (1 - p) + cylinderHeight * p;
+        height = sBlockHeight * (1 - p) + sCylinderHeight * p;
         for (let i = 0; i < 10; i++) {
-          radii.push(blockRadii[i] * (1 - p) + cylinderRadii[i] * p);
+          const r = blockRadii[i] * (1 - p) + cylinderRadii[i] * p;
+          radii.push(r * scale);
         }
-        hollowR = 0 * (1 - p) + 32 * p;
+        hollowR = (0 * (1 - p) + 32 * p) * scale;
       } else {
         const p = (currentProgress - 0.5) / 0.5;
-        height = cylinderHeight * (1 - p) + vaseHeight * p;
+        height = sCylinderHeight * (1 - p) + sVaseHeight * p;
         for (let i = 0; i < 10; i++) {
-          radii.push(cylinderRadii[i] * (1 - p) + vaseRadii[i] * p);
+          const r = cylinderRadii[i] * (1 - p) + vaseRadii[i] * p;
+          radii.push(r * scale);
         }
-        hollowR = 32 * (1 - p) + (radii[0] - 6) * p;
+        hollowR = (32 * (1 - p) + (radii[0] / scale - 6) * p) * scale;
       }
       
       // y-coordinates for all layers
