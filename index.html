@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varnam Cafe | Where Coffee Meets Clay</title>
+  <meta name="description" content="Welcome to Varnam Cafe. Enjoy our hand-dripped specialty organic coffees, artisan pastries, and join our hands-on clay pottery studio workshops.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo" id="brand-logo">Varnam <span>Cafe</span></a>
+      
+      <button class="nav-toggle" id="menuToggle" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">Experience</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#pottery">Pottery</a></li>
+        <li><a href="#clay-paint-art">Clay & Paint Art</a></li>
+        <li><a href="#book" class="btn-book">Book a Workshop</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content reveal">
+        <span class="section-tag">An Artisanal Sanctuary</span>
+        <h1>Where coffee meets <span>clay</span>.</h1>
+        <p>Step into Varnam Cafe, an organic coffee house combined with a hands-on ceramic studio. Savor specialty roasts out of handcrafted stoneware and shape your own pottery on the wheel.</p>
+        <div class="hero-buttons">
+          <a href="#book" class="btn-primary" id="btnHeroBook">Reserve a Wheel</a>
+          <a href="#menu" class="btn-secondary" id="btnHeroMenu">Explore Menu</a>
+        </div>
+      </div>
+      <div class="hero-image-wrapper reveal">
+        <img src="assets/hero_pottery_cafe.png" alt="Aesthetic pottery cafe interior" class="hero-main-img" id="heroMainImg">
+        <div class="hero-badge" id="heroBadge">
+          <p>Established</p>
+          <h3>2026</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Our Philosophy</span>
+        <h2>Slow down, craft, and savor.</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal" id="featCoffee">
+          <div class="feature-icon">☕</div>
+          <h3>Organic Roasts</h3>
+          <p>Single-origin arabica beans sourced ethically, roasted locally, and served in unique terracotta cups that retain warmth and earthiness.</p>
+        </div>
+        <div class="feature-card reveal" id="featPottery">
+          <div class="feature-icon">🏺</div>
+          <h3>Pottery Wheel Sessions</h3>
+          <p>Guided hands-on ceramic workshops for beginners and experienced artists. Spin, shape, glaze, and take home your custom-made pots.</p>
+        </div>
+        <div class="feature-card reveal" id="featCommunity">
+          <div class="feature-icon">🌱</div>
+          <h3>Artistic Community</h3>
+          <p>A neighborhood space hosting local artist exhibits, pottery exchanges, and cozy weekend storytelling evenings over warm herbal brews.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Clay Wheel Section -->
+  <section class="wheel-showcase-section" id="clay-wheel">
+    <div class="container wheel-showcase-grid">
+      <div class="wheel-showcase-text reveal">
+        <span class="section-tag">Interactive Wheel</span>
+        <h2>The Art of Shaping</h2>
+        <p>Hover and guide your hands (cursor) over the spinning wheel. Move your cursor up and down to mold the clay, centering it and pulling it up into an elegant vase in real time.</p>
+        <div class="wheel-stats">
+          <div class="stat-item">
+            <span>Wheel Speed</span>
+            <strong>240 RPM</strong>
+          </div>
+          <div class="stat-item">
+            <span>Clay State</span>
+            <strong id="clay-state-text">Flat Block</strong>
+          </div>
+        </div>
+      </div>
+      <div class="wheel-interactive-container reveal">
+        <!-- Spinning Pottery Wheel Graphics -->
+        <div class="pottery-wheel-base">
+          <canvas id="clay-wheel-canvas" width="400" height="350"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Interactive Menu</span>
+        <h2>Flip Through Our Notebook</h2>
+        <p>Click on the pages or use the controls below to browse our organic offerings and stoneware collection.</p>
+      </div>
+      
+      <!-- Interactive Book Container -->
+      <div class="book-container reveal">
+        <!-- Central Spiral Binding Graphic -->
+        <div class="book-spiral-spine">
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+          <div class="spiral-ring"></div>
+        </div>
+
+        <div class="menu-book" id="menuBook">
+          <!-- COVER SPREAD (Active by default) -->
+          <div class="book-page active" id="page-cover">
+            <div class="page-content cover-page">
+              <div class="cover-design">
+                <span class="cover-tag">Est. 2026</span>
+                <h2 class="cover-title">VARNAM</h2>
+                <h3 class="cover-subtitle">Cafe & Clay Studio</h3>
+                <div class="cover-divider">🏺</div>
+                <p class="cover-desc">Our Handcrafted Culinary & Stoneware Menu</p>
+                <div class="click-to-open">Click to flip open ➔</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SPREAD 1: SANDWICH & SOURDOUGH TOAST | BURGERS & WRAPS, PASTA -->
+          <div class="book-page" id="page-spread-1">
+            <div class="page-split">
+              <!-- Left Page -->
+              <div class="page-half left-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">SANDWICH</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Veg Grilled Sandwich</div>
+                      <div class="menu-item-price">₹ 199</div>
+                      <div class="menu-item-desc">A classic, wholesome grilled sandwich packed with vegetables.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Crispy Veg Sandwich</div>
+                      <div class="menu-item-price">₹ 199</div>
+                      <div class="menu-item-desc">Crunchy vegetables and a delightful texture in every bite.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Corn Cheese Sandwich</div>
+                      <div class="menu-item-price">₹ 209</div>
+                      <div class="menu-item-desc">Sweet corn and gooey cheese come together in this comforting sandwich.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Hariyali Chicken Tikka Sandwich</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Spicy and flavorful chicken with a zesty Peri Peri kick.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Grilled Chicken Sandwich</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Tender grilled chicken, a timeless and satisfying choice.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Crispy Chicken Sandwich</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Irresistibly crispy chicken in a perfectly toasted sandwich.</div>
+                    </li>
+                  </ul>
+
+                  <h3 class="menu-cat-title">SOURDOUGH TOAST</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Classic Avocado Toast</div>
+                      <div class="menu-item-price">₹ 279</div>
+                      <div class="menu-item-desc">Creamy avocado spread on toast, a healthy and satisfying classic.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Creamy Mushroom Toast</div>
+                      <div class="menu-item-price">₹ 279</div>
+                      <div class="menu-item-desc">Rich and savory mushrooms in a creamy sauce atop toasted bread.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Eggs On Toast</div>
+                      <div class="menu-item-price">₹ 259</div>
+                      <div class="menu-item-desc">Art of perfectly cooked eggs served simply on toast.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Butter Chicken Toast</div>
+                      <div class="menu-item-price">₹ 289</div>
+                      <div class="menu-item-desc">A delectable fusion of rich butter chicken on crispy toast.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Grilled Chicken Toast</div>
+                      <div class="menu-item-price">₹ 289</div>
+                      <div class="menu-item-desc">Savory grilled chicken pieces served on a slice of golden toast.</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Right Page -->
+              <div class="page-half right-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">BURGERS & WRAPS</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Corn Cheese Burger</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">A cheesy and satisfying vegetarian burger with corn.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Vegarian Mustard Burger</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">A vegetarian burger with a zesty mustard flavor.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Italian Chicken Burger</div>
+                      <div class="menu-item-price">₹ 289</div>
+                      <div class="menu-item-desc">A burger with Italian-inspired flavors and toppings.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Classic Chicken Burger</div>
+                      <div class="menu-item-price">₹ 289</div>
+                      <div class="menu-item-desc">A timeless and classic chicken burger.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chipotle Chicken Wrap</div>
+                      <div class="menu-item-price">₹ 299</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Keema Roll</div>
+                      <div class="menu-item-price">₹ 299</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Peri Peri Paneer Wrap</div>
+                      <div class="menu-item-price">₹ 259</div>
+                    </li>
+                  </ul>
+
+                  <h3 class="menu-cat-title">PASTA & LASAGNA</h3>
+                  <div class="menu-note">Choice of: Penne / Spaghetti / Macaroni / Lasagna</div>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Alfredo Pasta (V/N)</div>
+                      <div class="menu-item-price">₹ 340 – ₹ 390</div>
+                      <div class="menu-item-desc">Creamy Alfredo sauce embracing sautéed veggies.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Lasagna (V/N)</div>
+                      <div class="menu-item-price">₹ 340 – ₹ 390</div>
+                      <div class="menu-item-desc">Layers of tender pasta, and a rich tomato sauce.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Arrabbiata (V/N)</div>
+                      <div class="menu-item-price">₹ 340 – ₹ 390</div>
+                      <div class="menu-item-desc">A fiery, flavorful tomato sauce with a delightful kick of chilli.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Mac & Cheese (Corn) (V/N)</div>
+                      <div class="menu-item-price">₹ 340 – ₹ 390</div>
+                      <div class="menu-item-desc">Irresistibly cheesy macaroni, generously blended with sweet corn kernels.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Aglio e Olio (V/N)</div>
+                      <div class="menu-item-price">₹ 340 – ₹ 390</div>
+                      <div class="menu-item-desc">Perfectly al dente spaghetti, lightly tossed in aromatic garlic and chili-infused olive oil.</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SPREAD 2: PIZZAS & BIG PLATES | BYTES -->
+          <div class="book-page" id="page-spread-2">
+            <div class="page-split">
+              <!-- Left Page -->
+              <div class="page-half left-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">PIZZA'S</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Maharaja Pizza</div>
+                      <div class="menu-item-price">₹ 389 / ₹ 429</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Butter Chicken Pizza</div>
+                      <div class="menu-item-price">₹ 429</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Napoleon</div>
+                      <div class="menu-item-price">₹ 429</div>
+                    </li>
+                  </ul>
+
+                  <h3 class="menu-cat-title">BIG PLATES</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Paneer Steak Rice Bowl</div>
+                      <div class="menu-item-price">₹ 349</div>
+                      <div class="menu-item-desc">Grilled paneer perfection on flavoured rice.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Corn Spinach Rice Bowl</div>
+                      <div class="menu-item-price">₹ 349</div>
+                      <div class="menu-item-desc">Creamy, wholesome comfort in a bowl.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Butter Paneer Rice Bowl</div>
+                      <div class="menu-item-price">₹ 349</div>
+                      <div class="menu-item-desc">Herbed rice with Authentic Paneer Butter Masala.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Green Thai Curry Rice Bowl</div>
+                      <div class="menu-item-price">₹ 369</div>
+                      <div class="menu-item-desc">Aromatic, creamy, and spicy green curry.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Italian Chicken Steak</div>
+                      <div class="menu-item-price">₹ 389</div>
+                      <div class="menu-item-desc">Grilled chicken steak with Italian herbs and sauce.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Francaise</div>
+                      <div class="menu-item-price">₹ 389</div>
+                      <div class="menu-item-desc">Chicken fillet in lemon butter wine sauce.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Thai Chicken Red Curry with Butter Rice</div>
+                      <div class="menu-item-price">₹ 389</div>
+                      <div class="menu-item-desc">Spicy Thai red curry with chicken and butter rice.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Butter Chicken Rice Bowl</div>
+                      <div class="menu-item-price">₹ 389</div>
+                      <div class="menu-item-desc">Classic creamy butter chicken served with rice.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Milanese with Potato Wedges</div>
+                      <div class="menu-item-price">₹ 419</div>
+                      <div class="menu-item-desc">Crispy breaded chicken served with potato wedges.</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Right Page -->
+              <div class="page-half right-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">BYTES</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* French Fries</div>
+                      <div class="menu-item-price">₹ 159</div>
+                      <div class="menu-item-desc">Perfectly golden, crispy classic fried potatoes, a timeless delight.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Onion Rings</div>
+                      <div class="menu-item-price">₹ 189</div>
+                      <div class="menu-item-desc">Sweet, tender onion rings in a perfectly seasoned, crispy batter.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Paneer Popcorn</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Irresistible, bite-sized golden nuggets of perfectly fried paneer.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Cheese Corn Ball</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Golden-fried bites of pure joy, bursting with gooey cheese and sweet corn.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Veg Nachos</div>
+                      <div class="menu-item-price">₹ 249</div>
+                      <div class="menu-item-desc">Crunchy tortilla chips piled high with savory vegetarian toppings and dreamy cheese.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Popcorn Chicken</div>
+                      <div class="menu-item-price">₹ 299</div>
+                      <div class="menu-item-desc">Golden, crispy bites, an explosion of comfort.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Loaded Fries</div>
+                      <div class="menu-item-price">₹ 309</div>
+                      <div class="menu-item-desc">A mountain of flavor, topped with chicken goodness.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Keema Nachos</div>
+                      <div class="menu-item-price">₹ 309</div>
+                      <div class="menu-item-desc">Crunchy paradise, topped with juicy keema chicken.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Chicken Cheese Balls</div>
+                      <div class="menu-item-price">₹ 349</div>
+                      <div class="menu-item-desc">Golden fried perfection, a cheesy, savory dream.</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SPREAD 3: ALL DAY BREAKFAST | DRINKS & KILN -->
+          <div class="book-page" id="page-spread-3">
+            <div class="page-split">
+              <!-- Left Page -->
+              <div class="page-half left-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">ALL DAY BREAKFAST</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* French Toast</div>
+                      <div class="menu-item-price">₹ 220</div>
+                      <div class="menu-item-desc">A Classic toast, sweet and perfectly pan-fried.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* English Breakfast</div>
+                      <div class="menu-item-price">₹ 289</div>
+                      <div class="menu-item-desc">Scrambled eggs, chicken sausage, sauted mushrooms, cherry tomatoes and baked beans.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Pancake</div>
+                      <div class="menu-item-price">₹ 250</div>
+                      <div class="menu-item-desc">Light and fluffy pancake, perfect for a comforting treat.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Mango French Toast</div>
+                      <div class="menu-item-price">₹ 240</div>
+                      <div class="menu-item-desc">A Sweet toast with the tropical flavour of fresh mango.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Pancake with Fresh Mango & Honey</div>
+                      <div class="menu-item-price">₹ 260</div>
+                      <div class="menu-item-desc">Fluffy pancakes with a twist of mango and honey.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Waffle with Mashed Mango Banana</div>
+                      <div class="menu-item-price">₹ 260</div>
+                      <div class="menu-item-desc">A tropical blend of mashed mango and banana.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Belgian Waffle with Ice Cream</div>
+                      <div class="menu-item-price">₹ 239</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <!-- Right Page -->
+              <div class="page-half right-half">
+                <div class="menu-category-container">
+                  <h3 class="menu-cat-title">BREWS & KILN SPECIALS</h3>
+                  <ul class="menu-list">
+                    <li>
+                      <div class="menu-item-name">* Rose Clay Latte</div>
+                      <div class="menu-item-price">₹ 240</div>
+                      <div class="menu-item-desc">Organic espresso with steamed almond milk and a hint of wild rose-water extract.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Drip Chemex Craft</div>
+                      <div class="menu-item-price">₹ 180</div>
+                      <div class="menu-item-desc">Slow-extraction coffee showcasing subtle notes of berry and cardamom.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Earthy Drip Glazed Mug</div>
+                      <div class="menu-item-price">₹ 1400</div>
+                      <div class="menu-item-desc">Artisan double-fired stoneware mug featuring our signature seafoam drip glaze.</div>
+                    </li>
+                    <li>
+                      <div class="menu-item-name">* Pinched Terracotta Bowl</div>
+                      <div class="menu-item-price">₹ 1600</div>
+                      <div class="menu-item-desc">Organic shaped soup bowl made from raw earthy clay. Clear glaze interior.</div>
+                    </li>
+                  </ul>
+
+                  <div class="menu-page-footer-note">
+                    <p class="handmade-note">Note: All our items are served in handcrafted clay cups and plates made right in the studio. You can purchase your dinnerware at checkout.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Book Navigation Controls -->
+        <div class="book-controls">
+          <button class="book-control-btn btn-prev" id="btnPrevPage" disabled>➔ Previous</button>
+          <div class="book-page-indicator" id="bookPageIndicator">Cover Page</div>
+          <button class="book-control-btn btn-next" id="btnNextPage">Next ➔</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pottery Gallery Section -->
+  <section class="studio-section" id="pottery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Studio Gallery</span>
+        <h2>Made on the wheel.</h2>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid reveal">
+        
+        <!-- Gallery 1: Studio Masterpiece (Pottery) -->
+        <div class="gallery-item" data-category="pottery" 
+             data-description="An expert wheel-throwing session demonstrating vertical clay centering and wall-pulling techniques. Savoring the clay shaping process under focused lighting in our Bangalore studio workspace."
+             data-clay="Raw Terracotta" 
+             data-date="February 2026" 
+             data-badge="Studio Collection">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_woman_shaping.png" alt="Centering a Masterpiece on the wheel" class="gallery-img">
+            <div class="gallery-badge">Studio Collection</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Flowing Turquoise Vase</h3>
+            <p class="gallery-author">By Master Potter Meera K.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 2: Student Centering Pot (Pottery) -->
+        <div class="gallery-item" data-category="pottery"
+             data-description="The first successful centered cylinder shape by our junior art student Anjali. Centering clay takes focus and patience, and Anjali mastered it on her very first wheel class!"
+             data-clay="Soft Brown Stoneware"
+             data-date="May 2026"
+             data-badge="Student Creation">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_girl_workshop.png" alt="Young student centering a pot" class="gallery-img">
+            <div class="gallery-badge">Student Creation</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Centering My First Cylinder</h3>
+            <p class="gallery-author">By Student Anjali D.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 3: Student Heart Bowl (Pottery) -->
+        <div class="gallery-item" data-category="pottery"
+             data-description="A beautiful hand-pinched and wheel-centered heart dish created by Rahul. Perfect for holding jewelry or keys, showcasing raw clay ridges on the outer walls."
+             data-clay="White Kaolin Blend"
+             data-date="May 2026"
+             data-badge="Student Creation">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_heart_bowl.png" alt="Hands holding heart-shaped clay bowl" class="gallery-img">
+            <div class="gallery-badge">Student Creation</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Heart-Shaped Clay Trinket</h3>
+            <p class="gallery-author">By Student Rahul S.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 4: Student Ruffled Spiral Bowl (Pottery) -->
+        <div class="gallery-item" data-category="pottery"
+             data-description="A stunning circular bowl displaying decorative ribbed ridges on the outer rim and a custom concentric spiral groove carved into the interior bed."
+             data-clay="Dark Fireclay"
+             data-date="September 2025"
+             data-badge="Student Creation">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_spiral_bowl.png" alt="Hands centering ruffled spiral bowl" class="gallery-img">
+            <div class="gallery-badge">Student Creation</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Ribbed Clay Bowl with Spiral</h3>
+            <p class="gallery-author">By Student Meera K.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 5: Student Elderly Woman Traditional Diya (Pottery) -->
+        <div class="gallery-item" data-category="pottery"
+             data-description="Savitri G. crafting a beautiful heart-shaped oil lamp (diya) at the wheel. The smooth, flowing clay walls reflect decades of traditional artistry."
+             data-clay="Riverbed Clay"
+             data-date="September 2025"
+             data-badge="Student Creation">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_elderly_woman.png" alt="Elderly woman holding heart clay diya" class="gallery-img">
+            <div class="gallery-badge">Student Creation</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Crafting the Traditional Diya</h3>
+            <p class="gallery-author">By Student Savitri G.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 6: Student Team Plates (Pottery) -->
+        <div class="gallery-item" data-category="pottery"
+             data-description="A team clay workshop celebrating friendship. Students worked in parallel to throw, shape, and decorate individual heart-patterned ceramic plates."
+             data-clay="Buff Stoneware"
+             data-date="February 2026"
+             data-badge="Student Creation">
+          <div class="gallery-img-container">
+            <img src="assets/pottery_team_plates.png" alt="Three smiling friends holding handmade clay heart plates" class="gallery-img">
+            <div class="gallery-badge">Student Creation</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Friendship in Clay Plates</h3>
+            <p class="gallery-author">By Varnam Art Class (Class of Feb)</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Clay & Paint Art Gallery Section -->
+  <section class="studio-section" id="clay-paint-art">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Clay & Paint Art Gallery</span>
+        <h2>Hand-pinched, sculpted & painted.</h2>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid reveal">
+        
+        <!-- Gallery 7: Clay Art - Rose Plates -->
+        <div class="gallery-item" data-category="clay-art"
+             data-description="Beautiful hand-sculpted clay plates showing delicate rose and leaf reliefs on textured clay beds. A perfect sister art date project!"
+             data-clay="Air-Dry Terracotta Clay"
+             data-date="February 2026"
+             data-badge="Clay Art">
+          <div class="gallery-img-container">
+            <img src="assets/clay_roses.png" alt="Hands holding hand-sculpted clay plates with roses" class="gallery-img">
+            <div class="gallery-badge">Clay Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Hand-Sculpted Rose Plates</h3>
+            <p class="gallery-author">By Student Pranitha & Sister</p>
+          </div>
+        </div>
+
+        <!-- Gallery 8: Clay Art - Studio Workspace -->
+        <div class="gallery-item" data-category="clay-art"
+             data-description="An active studio workspace showing rolling pins, modeling tools, and flat clay slabs prepared for hand-sculpting."
+             data-clay="Earthy Stoneware Slabs"
+             data-date="February 2026"
+             data-badge="Clay Art">
+          <div class="gallery-img-container">
+            <img src="assets/clay_sculpting.png" alt="Studio workspace table with clay tools and slabs" class="gallery-img">
+            <div class="gallery-badge">Clay Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Studio Sculpting Workspace</h3>
+            <p class="gallery-author">By Studio Class of Feb</p>
+          </div>
+        </div>
+
+        <!-- Gallery 9: Clay Art - Pinched Heart Bowl -->
+        <div class="gallery-item" data-category="clay-art"
+             data-description="A freshly hand-pinched heart-shaped clay bowl with organic walls, ready to be slow-dried and bisque fired."
+             data-clay="Riverbed Terracotta"
+             data-date="March 2026"
+             data-badge="Clay Art">
+          <div class="gallery-img-container">
+            <img src="assets/clay_heart_bowl.png" alt="Hands holding pinched heart clay bowl in apron" class="gallery-img">
+            <div class="gallery-badge">Clay Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Pinched Clay Heart Dish</h3>
+            <p class="gallery-author">By Student Mona S.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 10: Clay Art - Smiling Girl -->
+        <div class="gallery-item" data-category="clay-art"
+             data-description="A proud moment in the studio! Aadya showing off her very first hand-sculpted clay bowl during our weekend kids workshop."
+             data-clay="Natural Buff Clay"
+             data-date="February 2026"
+             data-badge="Clay Art">
+          <div class="gallery-img-container">
+            <img src="assets/clay_smiling_girl.png" alt="Young smiling girl holding her hand-sculpted clay bowl" class="gallery-img">
+            <div class="gallery-badge">Clay Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>My First Hand-Sculpted Bowl</h3>
+            <p class="gallery-author">By Student Aadya K.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 11: Paint Art - Ganesha Sketch -->
+        <div class="gallery-item" data-category="paint-art"
+             data-description="A beautiful black-ink canvas painting of Lord Ganesha, sketched and detailed with fine line brushes in our weekend canvas art session."
+             data-clay="Acrylic on Canvas"
+             data-date="March 2026"
+             data-badge="Paint Art">
+          <div class="gallery-img-container">
+            <img src="assets/paint_ganesha.png" alt="Elderly woman painting Ganesha canvas sketch" class="gallery-img">
+            <div class="gallery-badge">Paint Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Lord Ganesha Canvas Sketch</h3>
+            <p class="gallery-author">By Student Savitri G.</p>
+          </div>
+        </div>
+
+        <!-- Gallery 12: Paint Art - Sunset Paint Date -->
+        <div class="gallery-item" data-category="paint-art"
+             data-description="A couple showing their finished artworks from our Paint & Sip date night workshop—a beautiful sunset landscape canvas and a hand-painted wine glass."
+             data-clay="Acrylic & Glass Paint"
+             data-date="March 2026"
+             data-badge="Paint Art">
+          <div class="gallery-img-container">
+            <img src="assets/paint_couple.png" alt="Happy couple holding sunset painting and painted wine glass" class="gallery-img">
+            <div class="gallery-badge">Paint Art</div>
+          </div>
+          <div class="gallery-info">
+            <h3>Sunset Paint Date Night</h3>
+            <p class="gallery-author">By Students Ashok & Uma</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="booking-section" id="book">
+    <div class="container booking-grid">
+      <div class="booking-text reveal">
+        <span class="section-tag">Join a Class</span>
+        <h2>Reserve your pottery wheel.</h2>
+        <p>Ready to get your hands messy? Select a date from our interactive calendar and choose an open session slot. All clay, wheel time, glazes, and firings are included in the workshop fee.</p>
+        <ul class="booking-features">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            2-Hour Hands-On Wheel Instruction
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            1.5kg Organic Earthy Clay per person
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Firing & Glazing of 2 of your pieces
+          </li>
+        </ul>
+      </div>
+
+      <!-- Booking Card Widget -->
+      <div class="booking-card reveal">
+        <form class="booking-form" id="potteryBookingForm">
+          <div class="form-group">
+            <label for="bookingName">Your Name</label>
+            <input type="text" id="bookingName" placeholder="Enter your full name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bookingEmail">Email Address</label>
+            <input type="email" id="bookingEmail" placeholder="Enter your email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="bookingExperience">Pottery Experience</label>
+            <select id="bookingExperience">
+              <option value="beginner">Total Beginner (First time!)</option>
+              <option value="intermediate">Intermediate (Can center clay)</option>
+              <option value="advanced">Advanced Studio Rental</option>
+            </select>
+          </div>
+
+          <!-- Custom Interactive Calendar -->
+          <div class="form-group">
+            <label>Select Date</label>
+            <div class="calendar-widget">
+              <div class="calendar-header">
+                <span class="calendar-month" id="calendarMonthYear">June 2026</span>
+              </div>
+              <div class="calendar-days" id="calendarDays">
+                <!-- JavaScript renders dates here -->
+              </div>
+            </div>
+            <input type="hidden" id="bookingDate" required>
+          </div>
+
+          <!-- Custom Time Slots -->
+          <div class="form-group">
+            <label>Choose a Time Slot</label>
+            <div class="time-slots" id="timeSlots">
+              <!-- JavaScript renders slots here -->
+            </div>
+            <input type="hidden" id="bookingSlot" required>
+          </div>
+
+          <button type="submit" class="btn-primary" id="btnSubmitBooking">Book Wheel Session</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Toast -->
+  <div class="toast" id="bookingToast" role="alert">
+    <span class="toast-success-icon">✓</span>
+    <span id="toastMessage">Your slot has been reserved successfully!</span>
+  </div>
+
+  <!-- Immersive Lightbox Modal (Lando Norris style) -->
+  <div class="gallery-modal" id="galleryModal" role="dialog" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-wrapper">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close Gallery Modal">✕</button>
+      <div class="modal-content-grid">
+        <div class="modal-img-column">
+          <img src="" alt="Pottery creation detail view" class="modal-main-img" id="modalMainImg">
+        </div>
+        <div class="modal-text-column">
+          <span class="modal-tag" id="modalTag">Studio Collection</span>
+          <h2 class="modal-title" id="modalTitle">Flowing Turquoise Vase</h2>
+          <p class="modal-author" id="modalAuthor">By Master Potter Meera K.</p>
+          <div class="modal-divider"></div>
+          <p class="modal-description" id="modalDescription">A masterwork of studio ceramics.</p>
+          <div class="modal-meta-box">
+            <div class="meta-item">
+              <span>Studio Session</span>
+              <strong id="modalDate">February 2026</strong>
+            </div>
+            <div class="meta-item">
+              <span>Clay Type</span>
+              <strong id="modalClay">Earthy Stoneware</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Varnam <span>Cafe</span></a>
+        <p>A creative space combining artisanal organic coffee with hands-on pottery workshops. Shape clay, drink roasts.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Twitter">TW</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Experience</h4>
+        <ul>
+          <li><a href="#about">Studio Philosophy</a></li>
+          <li><a href="#menu">Menu & Bites</a></li>
+          <li><a href="#pottery">Pottery Gallery</a></li>
+          <li><a href="#clay-paint-art">Clay & Paint Art Gallery</a></li>
+          <li><a href="#book">Classes & Booking</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <p><strong>Cafe:</strong> 7:30 AM – 9:00 PM</p>
+        <p><strong>Clay Studio:</strong> 9:00 AM – 8:00 PM</p>
+        <p>Closed Mondays for kiln firings.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Find Us</h4>
+        <p>102 Ceramic Street,</p>
+        <p>Artisanal District, Bangalore</p>
+        <p>hello@varnamcafe.com</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Varnam Cafe. Handcrafted with love.</p>
+      <p>Bangalore, Karnataka</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
