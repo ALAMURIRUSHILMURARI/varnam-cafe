@@ -1,35 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. Custom Responsive Interactive Cursor ---
-  const cursor = document.createElement('div');
-  cursor.className = 'custom-cursor';
-  const cursorInner = document.createElement('div');
-  cursorInner.className = 'custom-cursor-inner';
-  cursor.appendChild(cursorInner);
-  document.body.appendChild(cursor);
 
-  let mouse = { x: 0, y: 0 };
-  let pos = { x: 0, y: 0 };
-  const speed = 0.15; // LERP factor
-
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  const updateCursor = () => {
-    pos.x += (mouse.x - pos.x) * speed;
-    pos.y += (mouse.y - pos.y) * speed;
-    cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
-    requestAnimationFrame(updateCursor);
-  };
-  updateCursor();
-
-  // Highlight cursor on hoverable elements
-  const hoverables = document.querySelectorAll('a, button, select, input, .book-page, .time-slot, .calendar-day, .gallery-item');
-  hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-  });
 
 
   // --- 2. Immersive Morphing Liquid Background Canvas ---
@@ -517,6 +487,48 @@ document.addEventListener('DOMContentLoaded', () => {
     let platterRadiusX = canvasWidth * 0.325;
     let platterRadiusY = platterRadiusX * 0.17;
     
+    // Glaze Color Schemes (shadow, mid, base, highlight) in RGB for LERP transitions
+    const glazes = {
+      terracotta: {
+        shadow: [122, 63, 38],
+        mid: [150, 82, 52],
+        base: [198, 120, 84],
+        highlight: [212, 134, 98]
+      },
+      seafoam: {
+        shadow: [25, 75, 78],
+        mid: [45, 127, 131],
+        base: [58, 180, 185],
+        highlight: [210, 245, 246]
+      },
+      obsidian: {
+        shadow: [15, 15, 15],
+        mid: [30, 30, 30],
+        base: [45, 45, 45],
+        highlight: [220, 220, 220]
+      },
+      forest: {
+        shadow: [20, 40, 18],
+        mid: [35, 70, 32],
+        base: [45, 90, 39],
+        highlight: [200, 240, 195]
+      },
+      cobalt: {
+        shadow: [20, 35, 60],
+        mid: [33, 60, 105],
+        base: [43, 76, 126],
+        highlight: [200, 220, 255]
+      }
+    };
+
+    let targetGlazeKey = 'terracotta';
+    let currentGlazeColors = {
+      shadow: [122, 63, 38],
+      mid: [150, 82, 52],
+      base: [198, 120, 84],
+      highlight: [212, 134, 98]
+    };
+    
     // Spin animation angle
     let spinAngle = 0;
     
@@ -544,7 +556,8 @@ document.addEventListener('DOMContentLoaded', () => {
       draw() {
         const x = centerX + this.distance * Math.cos(this.angle);
         const y = platterY + this.distance * 0.18 * Math.sin(this.angle) + this.yOffset;
-        wCtx.fillStyle = `rgba(211, 107, 78, ${this.alpha * 0.55})`;
+        const baseColor = currentGlazeColors.base;
+        wCtx.fillStyle = `rgba(${Math.round(baseColor[0])}, ${Math.round(baseColor[1])}, ${Math.round(baseColor[2])}, ${this.alpha * 0.65})`;
         wCtx.beginPath();
         wCtx.arc(x, y, this.size, 0, 2 * Math.PI);
         wCtx.fill();
@@ -553,15 +566,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const droplets = Array.from({ length: 15 }, () => new Droplet());
     
-    // Mouse and Touch Event Listeners for Real-Time Shaping
     wheelCanvas.addEventListener('mouseenter', () => {
       isMouseOverCanvas = true;
-      cursor.classList.add('shaping');
     });
 
     wheelCanvas.addEventListener('mouseleave', () => {
       isMouseOverCanvas = false;
-      cursor.classList.remove('shaping');
     });
 
     wheelCanvas.addEventListener('mousemove', (e) => {
@@ -590,7 +600,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wheelCanvas.addEventListener('touchend', () => {
       isMouseOverCanvas = false;
-      cursor.classList.remove('shaping');
     });
 
     wheelCanvas.addEventListener('touchmove', (e) => {
@@ -607,6 +616,16 @@ document.addEventListener('DOMContentLoaded', () => {
         progress = Math.max(0, Math.min(1, progress));
         targetProgress = progress;
       }
+    });
+
+    // Hook up interactive glaze palette buttons
+    const glazeButtons = document.querySelectorAll('.glaze-btn');
+    glazeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        glazeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        targetGlazeKey = btn.dataset.glaze;
+      });
     });
 
     window.addEventListener('resize', () => {
@@ -632,6 +651,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Smooth LERP target progress
       currentProgress += (targetProgress - currentProgress) * 0.08;
+
+      // Smooth LERP glaze color palette (transitioning dynamically)
+      const targetGlaze = glazes[targetGlazeKey];
+      for (const stopKey in currentGlazeColors) {
+        for (let j = 0; j < 3; j++) {
+          currentGlazeColors[stopKey][j] += (targetGlaze[stopKey][j] - currentGlazeColors[stopKey][j]) * 0.06;
+        }
+      }
       
       // Update text state based on progress
       if (currentProgress < 0.1) {
@@ -746,13 +773,15 @@ document.addEventListener('DOMContentLoaded', () => {
       wCtx.closePath();
       
       // Clay Gradient Fill (3D cylinder lighting)
+      const rgbStr = (arr) => `rgb(${Math.round(arr[0])}, ${Math.round(arr[1])}, ${Math.round(arr[2])})`;
+      
       const clayGrad = wCtx.createLinearGradient(centerX - baseR, 0, centerX + baseR, 0);
-      clayGrad.addColorStop(0.0, '#7A3F26'); // Dark shadow terracotta
-      clayGrad.addColorStop(0.2, '#965234'); // Mid shadow
-      clayGrad.addColorStop(0.5, '#C67854'); // Terracotta base
-      clayGrad.addColorStop(0.7, '#D48662'); // Highlights
-      clayGrad.addColorStop(0.9, '#965234'); // Mid shadow
-      clayGrad.addColorStop(1.0, '#7A3F26'); // Dark shadow
+      clayGrad.addColorStop(0.0, rgbStr(currentGlazeColors.shadow));
+      clayGrad.addColorStop(0.2, rgbStr(currentGlazeColors.mid));
+      clayGrad.addColorStop(0.5, rgbStr(currentGlazeColors.base));
+      clayGrad.addColorStop(0.7, rgbStr(currentGlazeColors.highlight));
+      clayGrad.addColorStop(0.9, rgbStr(currentGlazeColors.mid));
+      clayGrad.addColorStop(1.0, rgbStr(currentGlazeColors.shadow));
       
       wCtx.fillStyle = clayGrad;
       wCtx.fill();
@@ -787,9 +816,9 @@ document.addEventListener('DOMContentLoaded', () => {
       wCtx.ellipse(centerX, topY, topR, topR * 0.18, 0, 0, 2 * Math.PI);
       
       const topGrad = wCtx.createLinearGradient(centerX - topR, 0, centerX + topR, 0);
-      topGrad.addColorStop(0, '#9E5B3D');
-      topGrad.addColorStop(0.5, '#E29774');
-      topGrad.addColorStop(1, '#9E5B3D');
+      topGrad.addColorStop(0, rgbStr(currentGlazeColors.mid));
+      topGrad.addColorStop(0.5, rgbStr(currentGlazeColors.base));
+      topGrad.addColorStop(1, rgbStr(currentGlazeColors.mid));
       wCtx.fillStyle = topGrad;
       wCtx.fill();
       wCtx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
